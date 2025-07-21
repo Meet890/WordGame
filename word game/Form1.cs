@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.Common;
-using System.Drawing;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace word_game
@@ -51,11 +46,11 @@ namespace word_game
             for (int i = 0; i < num; i++)
             {
                 float percent = 100 / num;
-                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,percent));
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, percent));
                 tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, percent));
                 int temp = i + 1;
                 string temp1 = "Collumn" + temp.ToString();
-                Label lblName = new Label() { Text = temp.ToString() , Anchor = AnchorStyles.Left   ,Name = temp1 };
+                Label lblName = new Label() { Text = temp.ToString(), Anchor = AnchorStyles.Left, Name = temp1 };
                 tableLayoutPanel1.Controls.Add(lblName, i, 0);
                 Label lblName2 = new Label() { Text = temp.ToString(), Anchor = AnchorStyles.Left, Name = temp.ToString() };
                 tableLayoutPanel2.Controls.Add(lblName2, i, 0);
@@ -63,12 +58,12 @@ namespace word_game
 
 
         }
-       
+
 
         private void btn4_Click(object sender, EventArgs e)
         {
             disable(4);
-            
+
         }
 
         private void btn5_Click(object sender, EventArgs e)
@@ -100,8 +95,8 @@ namespace word_game
             {
                 try
                 {
-                    int temp = i+1;
-                    string labName = "Collumn" +temp.ToString();
+                    int temp = i + 1;
+                    string labName = "Collumn" + temp.ToString();
                     Label lbl = (Label)tableLayoutPanel1.Controls[labName];
                     if (lbl != null)
                     {
@@ -119,7 +114,11 @@ namespace word_game
 
         }
 
-   
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void btn8_Click_1(object sender, EventArgs e)
         {
             disable(8);
@@ -133,10 +132,9 @@ namespace word_game
             Match = 0;
             string input = textBox2.Text.ToLower();
             word = input.Select(c => c.ToString()).ToArray();
-            
 
-            for (int i = 0; i < num; i++) {
-                
+            for (int i = 0; i < num; i++)
+            {
                 if (word[i] == orgWord[i])
                 {
                     Position += 1;
@@ -150,26 +148,51 @@ namespace word_game
                     }
                 }
             }
-            if (Position==num && Match == num)
+
+            if (Position == num && Match == num)
             {
-                MessageBox.Show("You are Won ...Word is : " + input);
-            
-
+                MessageBox.Show("You Won! The word is: " + input);
+                // Save the result to the database upon winning
+                SaveGameResult(string.Join("", orgWord), Attempts);
             }
-            if (Attempts == 3 || Attempts == 5 || Attempts == 7) {
-                string labName = "Collumn" + Attempts.ToString();
-                Label lbl = (Label)tableLayoutPanel1.Controls[labName];
-                if (lbl != null)
-                {
-                    lbl.Text = orgWord[Attempts-1];
-                    lbl.Visible = true;
-                }
 
+            // ... (rest of your existing code)
+            if (Attempts == 3 || Attempts == 5 || Attempts == 7)
+            {
+                // ...
             }
             label4.Text = Attempts.ToString();
             label6.Text = Position.ToString();
             label8.Text = Match.ToString();
+        }
 
+        private void SaveGameResult(string word, int attempts)
+        {
+            // --- Database Connection and Data Insertion ---
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\Marble\\source\\repos\\WordGame\\word game\\Database1.mdf\";Integrated Security=True";
+            // Assumes you have a table named GameResults with columns Word and Attempts
+            string query = "INSERT INTO GameResults (Word, Attempts) VALUES (@Word, @Attempts)";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Use parameters to prevent SQL injection
+                        command.Parameters.AddWithValue("@Word", word);
+                        command.Parameters.AddWithValue("@Attempts", attempts);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Game result saved successfully!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saving game result: " + ex.Message);
+            }
         }
 
         private void btn8_Click(object sender, EventArgs e)

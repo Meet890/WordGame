@@ -11,3 +11,17 @@ C:\Users\Marble\source\repos\word game\word game\obj\Debug\word game.pdb
 C:\Users\Marble\source\repos\word game\word game\obj\Debug\word game.exe.config
 C:\Users\Marble\source\repos\word game\word game\bin\Debug\wordgame.mdf
 C:\Users\Marble\source\repos\word game\word game\bin\Debug\wordgame_log.ldf
+C:\Users\Marble\source\repos\WordGame\word game\bin\Debug\wordgame.mdf
+C:\Users\Marble\source\repos\WordGame\word game\bin\Debug\wordgame_log.ldf
+C:\Users\Marble\source\repos\WordGame\word game\bin\Debug\word game.exe.config
+C:\Users\Marble\source\repos\WordGame\word game\bin\Debug\word game.exe
+C:\Users\Marble\source\repos\WordGame\word game\bin\Debug\word game.pdb
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word game.csproj.AssemblyReference.cache
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word game.exe.config
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word_game.Form1.resources
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word_game.Form2.resources
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word_game.Properties.Resources.resources
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word game.csproj.GenerateResource.cache
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word game.csproj.CoreCompileInputs.cache
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word game.exe
+C:\Users\Marble\source\repos\WordGame\word game\obj\Debug\word game.pdb
